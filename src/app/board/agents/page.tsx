@@ -1,4 +1,5 @@
 import { getSupabaseAdmin, isSupabaseConfigured } from '@/lib/supabase/server'
+import { AgentRunButton, AgentToggle } from './AgentControls'
 
 type AgentConfig = {
   name: string
@@ -67,9 +68,7 @@ export default async function AgentsPage() {
                     <h3 className="font-display text-xl text-navy">{a.display_name}</h3>
                     <code className="text-[10px] text-ink/50 font-mono">{a.name}</code>
                   </div>
-                  <span className={`eyebrow text-[10px] px-3 py-1 rounded-full border ${a.enabled ? 'bg-palm/15 text-palm border-palm' : 'bg-stone text-ink border-stone'}`}>
-                    {a.enabled ? 'enabled' : 'disabled'}
-                  </span>
+                  <AgentToggle name={a.name} enabled={a.enabled} />
                 </div>
                 <p className="text-sm text-ink/75 leading-relaxed mb-4">{a.description}</p>
 
@@ -105,9 +104,7 @@ export default async function AgentsPage() {
                   </div>
                 </div>
 
-                <button type="button" className="btn-outline w-full justify-center text-xs px-5 py-2.5">
-                  Run Now
-                </button>
+                <AgentRunButton name={a.name} disabled={!a.enabled} />
               </div>
             )
           })}

@@ -1,4 +1,5 @@
 import { getSupabaseAdmin, isSupabaseConfigured } from '@/lib/supabase/server'
+import { AddMemberDialog } from './AddMemberDialog'
 
 type MemberRow = {
   id: string
@@ -40,7 +41,7 @@ export default async function MembersPage() {
           <h1 className="font-display text-4xl text-navy">Members</h1>
           <p className="text-ink/70 mt-1 text-sm">{members.length} active records · click any row to edit</p>
         </div>
-        <button type="button" className="btn-primary">+ Add Member</button>
+        <AddMemberDialog />
       </header>
 
       {!isSupabaseConfigured && (

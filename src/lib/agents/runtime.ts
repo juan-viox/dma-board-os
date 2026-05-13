@@ -248,16 +248,26 @@ export async function runAgent(agent: AgentDef, input: AgentRunInput): Promise<A
 }
 
 /**
- * Async fire-and-forget trigger. Used after webhook events (e.g. apply submit).
- * Imports the agent dynamically to avoid circular deps.
+ * Trigger an agent by name. Returns the AgentRunResult.
+ * Uses a static map so Next.js bundler can tree-shake correctly in production.
  */
-export async function triggerAgent(name: string, ctx: Record<string, unknown>): Promise<void> {
-  // Dynamic import — keeps the request hot path lean
-  const mod = await import(`./${name.replace(/_/g, '-')}.ts`).catch(async () => {
-    return await import(`./${name.replace(/_/g, '-')}.js`)
-  })
+export async function triggerAgent(name: string, ctx: Record<string, unknown>): Promise<AgentRunResult> {
+  const loader = AGENT_LOADERS[name]
+  if (!loader) throw new Error(`Unknown agent: ${name}`)
+  const mod = await loader()
   if (typeof mod.run !== 'function') {
     throw new Error(`Agent module ${name} has no exported run() function`)
   }
-  await mod.run(ctx)
+  return mod.run(ctx)
+}
+
+const AGENT_LOADERS: Record<string, () => Promise<{ run: (ctx: unknown) => Promise<AgentRunResult> }>> = {
+  application_triage: () => import('./application-triage'),
+  membership_renewal: () => import('./membership-renewal'),
+  npi_verification: () => import('./npi-verification'),
+  newsletter_drafter: () => import('./newsletter-drafter'),
+  voice_agent_analyst: () => import('./voice-agent-analyst'),
+  donation_acknowledgment: () => import('./donation-acknowledgment'),
+  event_reminder: () => import('./event-reminder'),
+  mission_coordinator: () => import('./mission-coordinator'),
 }

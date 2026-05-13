@@ -1,4 +1,5 @@
 import { getSupabaseAdmin, isSupabaseConfigured } from '@/lib/supabase/server'
+import { ApplicationActions } from './ApplicationActions'
 
 type AppRow = {
   id: string
@@ -107,10 +108,8 @@ export default async function ApplicationsPage() {
                 <p className="mt-2 p-4 bg-cream rounded-md text-sm text-ink/85 italic">&ldquo;{app.motivation}&rdquo;</p>
               </details>
 
-              <div className="mt-4 flex gap-3 flex-wrap">
-                <button type="button" className="btn-primary text-xs px-5 py-2.5">Approve</button>
-                <button type="button" className="btn-outline text-xs px-5 py-2.5">Request More Info</button>
-                <button type="button" className="text-xs px-5 py-2.5 rounded-full font-eyebrow uppercase tracking-eyebrow text-crimson border border-crimson hover:bg-crimson hover:text-cream transition-colors">Reject</button>
+              <div className="mt-4">
+                <ApplicationActions applicationId={app.id} status={app.status} />
               </div>
             </li>
           ))}
