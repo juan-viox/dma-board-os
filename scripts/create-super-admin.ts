@@ -25,6 +25,7 @@ type Args = {
   password: string
   firstName?: string
   lastName?: string
+  phone?: string
 }
 
 function parseArgs(): Args {
@@ -71,7 +72,7 @@ async function main() {
     })
   } else {
     console.log('  ↳ creating new Clerk user')
-    user = await clerk.users.createUser({
+    const createPayload: Parameters<typeof clerk.users.createUser>[0] = {
       emailAddress: [args.email],
       password: args.password,
       firstName: args.firstName,
@@ -79,7 +80,11 @@ async function main() {
       skipPasswordChecks: true,
       skipPasswordRequirement: false,
       publicMetadata: { role: 'super_admin' },
-    })
+    }
+    if (args.phone) {
+      ;(createPayload as Record<string, unknown>).phoneNumber = [args.phone]
+    }
+    user = await clerk.users.createUser(createPayload)
   }
   console.log(`  ✓ Clerk user id: ${user.id}`)
   console.log(`  ✓ role set to super_admin in publicMetadata`)
