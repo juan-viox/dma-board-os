@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --navy: #0B2A4A;
+    --navy-dark: #061A2F;
+    --crimson: #C8102E;
+    --saffron: #E8A04C;
+    --saffron-soft: #F4C58A;
+    --palm: #3F7D5C;
+    --cream: #F5EFE3;
+    --parchment: #FAF6EE;
+    --ink: #1A1A1A;
+    --stone: #E5E7EB;
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  h1 em, h2 em, h3 em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--saffron);
+    font-weight: 500;
+  }
+
+  /* Bilingual visibility — toggled by data-lang on <html> */
+  html[data-lang="en"] [data-es] { display: none; }
+  html[data-lang="es"] [data-en] { display: none; }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto max-w-[1280px] px-6 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    font-family: 'Jost', system-ui, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-saffron px-7 py-3.5 text-navy font-semibold tracking-[0.2em] text-xs uppercase transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl;
+    font-family: 'Jost', system-ui, sans-serif;
+    transition-timing-function: var(--ease-expo);
+  }
+
+  .btn-glass {
+    @apply inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-cream font-semibold tracking-[0.2em] text-xs uppercase border border-cream/30 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5;
+    background: rgba(245, 239, 227, 0.12);
+    font-family: 'Jost', system-ui, sans-serif;
+    transition-timing-function: var(--ease-expo);
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-navy font-semibold tracking-[0.2em] text-xs uppercase border border-navy/30 transition-all duration-300 hover:bg-navy hover:text-cream hover:-translate-y-0.5;
+    font-family: 'Jost', system-ui, sans-serif;
+    transition-timing-function: var(--ease-expo);
+  }
+
+  .text-mask-saffron-crimson {
+    background: linear-gradient(135deg, var(--saffron) 0%, var(--crimson) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glass-dark {
+    background: rgba(11, 42, 74, 0.55);
+    backdrop-filter: blur(12px);
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "crons": [
+    { "path": "/api/cron/agents?agent=membership_renewal", "schedule": "0 14 * * *" },
+    { "path": "/api/cron/agents?agent=npi_verification", "schedule": "0 5 1 * *" },
+    { "path": "/api/cron/agents?agent=newsletter_drafter", "schedule": "0 16 1,15 * *" },
+    { "path": "/api/cron/agents?agent=voice_agent_analyst", "schedule": "0 17 * * *" },
+    { "path": "/api/cron/agents?agent=event_reminder", "schedule": "0 10 * * *" }
+  ]
+}

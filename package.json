@@ -1,0 +1,43 @@
+{
+  "name": "dma-board-os",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Dominican Medical Association of New York · Multi-page public site + VioX AI CRM admin for the board",
+  "scripts": {
+    "dev": "next dev -p 3600",
+    "build": "next build",
+    "start": "next start -p 3600",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "supabase:reset": "supabase db reset",
+    "agent:run": "tsx scripts/run-agent.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@clerk/nextjs": "^6.10.0",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.10",
+    "clsx": "^2.1.1",
+    "next": "^15.1.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "stripe": "^17.5.0",
+    "svix": "^1.45.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^15.1.4",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
