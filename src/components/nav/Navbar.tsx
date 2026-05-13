@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { Show, UserButton } from '@clerk/nextjs'
 import { DmaLogo } from '@/components/ui/DmaLogo'
 import { LangToggle } from '@/components/i18n/LangToggle'
 import { T } from '@/components/i18n/T'
@@ -68,7 +68,7 @@ export function Navbar({ heroMode = false }: { heroMode?: boolean }) {
 
         <div className="flex items-center gap-3">
           <LangToggle inverted={!isTransparent} />
-          <SignedIn>
+          <Show when="signed-in">
             <Link
               href="/board"
               className="hidden md:inline-flex font-eyebrow uppercase tracking-eyebrow text-[10px] px-3 py-2 rounded-full border border-current/30 hover:text-saffron transition-colors"
@@ -76,15 +76,15 @@ export function Navbar({ heroMode = false }: { heroMode?: boolean }) {
               <T en="Board" es="Junta" />
             </Link>
             <UserButton appearance={{ elements: { avatarBox: 'h-9 w-9' } }} />
-          </SignedIn>
-          <SignedOut>
+          </Show>
+          <Show when="signed-out">
             <Link
               href="/sign-in"
               className="hidden md:inline-flex font-eyebrow uppercase tracking-eyebrow text-[10px] px-4 py-2 rounded-full bg-navy text-cream hover:bg-crimson transition-colors"
             >
               <T en="Sign In" es="Acceso" />
             </Link>
-          </SignedOut>
+          </Show>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -117,7 +117,7 @@ export function Navbar({ heroMode = false }: { heroMode?: boolean }) {
                 <T en={item.en} es={item.es} />
               </Link>
             ))}
-            <SignedOut>
+            <Show when="signed-out">
               <Link
                 href="/sign-in"
                 onClick={() => setOpen(false)}
@@ -125,8 +125,8 @@ export function Navbar({ heroMode = false }: { heroMode?: boolean }) {
               >
                 <T en="Sign In" es="Acceso" />
               </Link>
-            </SignedOut>
-            <SignedIn>
+            </Show>
+            <Show when="signed-in">
               <Link
                 href="/board"
                 onClick={() => setOpen(false)}
@@ -134,7 +134,7 @@ export function Navbar({ heroMode = false }: { heroMode?: boolean }) {
               >
                 <T en="Open Board" es="Abrir Junta" />
               </Link>
-            </SignedIn>
+            </Show>
           </div>
         </div>
       )}
